@@ -23,9 +23,6 @@ EJScreen uses Apache Hadoop pig scripts to generate Risk Program Management (RMP
 - Prep with text editor (Capitalize first header row and remove all other header rows).
 - Import US csv file to Excel; make sure BLKGRP is text.
 - Add the Excel file to the geodatabase (RMP\_Work.gdb) as a new table (RMP\_BG\_Scores\_US).
-- Rename columns to STCNTRBG and BG\_SCORE, and name table RMP\_BG\_Scores\_Final.
-- Provide datasets for testing. First create RMPProximity\_Testing.gdb
-- Include US\_BG\_Scores\_Final and RMP\_021623\_forEJ tables.
 - Add US\_RMPProx\_BG with BG shapes and BG\_SCORE, set NULL Scores to 0.
 
 **EPA Disclaimer**
