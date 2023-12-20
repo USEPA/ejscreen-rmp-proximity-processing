@@ -1,14 +1,10 @@
 # **Generating EJScreen RMP Facility Proximity**
 
-EJScreen uses Apache Hadoop pig scripts to generate Risk Program Management (RMP) facility proximity. The Pig scripts were developed using Esri's [GIS Toolkit for Hadoop](https://esri.github.io/gis-tools-for-hadoop/) toolkit. It was run in an AWS EMR cluster environment. The source data came from EPA's Envirofacts database. The proximity process involves Pre-Hadoop processing, running Hadoop Pig scripts, and Post-Hadoop processing. The end results are Census block-group based proximity scores.
-
-**Source:**
-
-The source dataset is an active RMP (Risk Management Plan) facilities spreadsheet pulled from Envirofacts FRS database: export\_RMP.xlsx. The export was performed on February 16, 2023, where Program = 'RMP' and active\_status = 'ACTIVE' and not null coordinates.
+EJScreen uses Apache Hadoop pig scripts to generate Risk Program Management (RMP) facility proximity. The Pig scripts were developed using Esri's [GIS Toolkit for Hadoop](https://esri.github.io/gis-tools-for-hadoop/) toolkit. It was run in an AWS EMR cluster environment. The source data came directly from EPA's RMP database with all active sites. The proximity process involves Pre-Hadoop processing, running Hadoop Pig scripts, and Post-Hadoop processing. The end results are Census block-group based proximity scores.
 
 **Pre-Hadoop Processing:**
 
-- Import spreadsheet to table (RMP\_021623 in geodatabase RMP\_Work.gdb.
+- Create a geodatabase table RMP_Work.gdb based on the download dataset (RMP_021623.csv).
 - Drop records outside US and PR and create table RMP\_021623\_forHadoop.
 - Export records to RMP\_021623\_forHadoop.csv with these columns: EPA\_ID, LATITUDE, LONGITUDE, CWEIGHT. Note that EPA\_ID is PGM\_SYS\_ID from the Envirofacts source file and CWEIGHT = 1 for all records.
 
@@ -23,10 +19,10 @@ The source dataset is an active RMP (Risk Management Plan) facilities spreadshee
 
 **Post-Hadoop Processing:**
 
-- Combine all BG score files text files in OutputfromHadoop folder into one file (RMP\_BG\_Scores\_US.csv).
+- Combine all BG score text files in OutputfromHadoop folder into one file (RMP\_BG\_Scores\_US.csv).
 - Prep with text editor (Capitalize first header row and remove all other header rows).
 - Import US csv file to Excel; make sure BLKGRP is text.
-- Port US Excel file into geodatabase table (RMP\_Work.gdb/RMP\_BG\_Scores\_US).
+- Add the Excel file to the geodatabase (RMP\_Work.gdb) as a new table (RMP\_BG\_Scores\_US).
 - Rename columns to STCNTRBG and BG\_SCORE, and name table RMP\_BG\_Scores\_Final.
 - Provide datasets for testing. First create RMPProximity\_Testing.gdb
 - Include US\_BG\_Scores\_Final and RMP\_021623\_forEJ tables.
