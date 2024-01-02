@@ -5,7 +5,7 @@ EJScreen uses Apache Hadoop pig scripts to generate Risk Program Management (RMP
 **Pre-Hadoop Processing:**
 
 - Create a geodatabase table RMP_Work.gdb based on the download dataset (RMP_021623.csv).
-- Drop records outside the 50 US states, DC and PR, and create table RMP\_021623\_forHadoop.
+- Keep only the records for the 50 US states, DC and PR, and create table RMP\_021623\_forHadoop.
 - Export records to RMP\_021623\_forHadoop.csv with these columns: EPA\_ID, LATITUDE, LONGITUDE, CWEIGHT. Note that EPA\_ID is PGM\_SYS\_ID from the Envirofacts source file and CWEIGHT = 1 for all records.
 
 **AWS Hadoop Processing:**
